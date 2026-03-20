@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ApprovalRequest, ProviderHealth } from "../types";
+import { ApprovalRequest } from "../types";
 import { endpoints } from "../api/endpoints";
 
 interface ApprovalState {
@@ -47,30 +47,4 @@ export const useApprovalStore = create<ApprovalState>((set) => ({
 
   setPanelOpen: (open) => set({ panelOpen: open }),
   togglePanel: () => set((state) => ({ panelOpen: !state.panelOpen })),
-}));
-
-interface ProviderState {
-  providers: ProviderHealth[];
-  lastChecked: string | null;
-  fetchHealth: () => Promise<void>;
-}
-
-export const useProviderStore = create<ProviderState>((set) => ({
-  providers: [],
-  lastChecked: null,
-
-  fetchHealth: async () => {
-    try {
-      // In a real implementation we would fetch all provider IDs first
-      // or the listProviders endpoint would return aggregate health.
-      // For Milestone 2, we implement the structure.
-      const response = await endpoints.listProviders();
-      if (response.status === "ok" && response.data) {
-        // Mock health mapping for the sake of the store structure
-        set({ lastChecked: new Date().toISOString() });
-      }
-    } catch (e) {
-      console.error("Failed to fetch provider health:", e);
-    }
-  },
 }));
