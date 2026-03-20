@@ -8,7 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Milestone 2: State Management with Zustand stores.
+  - Connection, UI, Session, Message, Approval, Trace, Research, Deliberation, Workspace, and Arena stores.
+  - Wired stores to the API layer endpoint functions.
+  - Implemented WebSocket-based message streaming in useMessageStore.
+- Milestone 1: API Layer implementation.
+  - Full TypeScript type definitions.
+  - Tauri Rust IPC for token management.
+  - Ky-based HTTP client and class-based WebSocket manager.
 - Project bootstrap using Tauri 2, React 19, and TypeScript 5.
-- Tailwind CSS 4 configuration with custom design tokens.
-- IBM Plex Sans and IBM Plex Mono fonts via @fontsource.
-- Directory structure scaffold with index barrel files.
