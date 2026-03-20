@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Milestone 3: Shared Components.
+  - Core UI primitives: Button, Badge, ConnectionIndicator, Panel, TraceEventRow, Modal.
+  - Full support for variants, sizes, and states (loading, disabled, pulsing).
+  - Integration with Tailwind 4 and Lucide icons.
 - Milestone 2: State Management with Zustand stores.
   - Connection, UI, Session, Message, Approval, Trace, Research, Deliberation, Workspace, and Arena stores.
   - Wired stores to the API layer endpoint functions.
