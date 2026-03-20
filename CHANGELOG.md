@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Milestone 4: Shell.
+  - Sidebar with mode switcher and session list.
+  - Header with session title, connection status, and approval/health badges.
+  - TracePanel for chronological event viewing.
+  - Keyboard shortcuts hook (Ctrl+1-6, Ctrl+N, Ctrl+B, Ctrl+T, Ctrl+Shift+A).
+  - Polling hook for background API synchronization.
+  - Full App shell assembly in App.tsx.
 - Milestone 3: Shared Components.
   - Core UI primitives: Button, Badge, ConnectionIndicator, Panel, TraceEventRow, Modal.
   - Full support for variants, sizes, and states (loading, disabled, pulsing).

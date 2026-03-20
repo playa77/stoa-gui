@@ -1,16 +1,73 @@
-export default function App() {
+import { Sidebar } from "./components/shell/Sidebar";
+import { Header } from "./components/shell/Header";
+import { TracePanel } from "./components/shell/TracePanel";
+import { useUIStore } from "./stores/ui";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
+import { usePolling } from "./hooks/usePolling";
+import { SessionMode } from "./types";
+
+function App() {
+  const { activeMode } = useUIStore();
+  
+  // Custom hooks
+  useKeyboardShortcuts();
+  usePolling();
+
+  const renderContent = () => {
+    switch (activeMode) {
+      case SessionMode.CHAT:
+        return (
+          <div className="flex h-full items-center justify-center text-text-secondary">
+            [CHAT MODE PLACEHOLDER]
+          </div>
+        );
+      case SessionMode.RESEARCH:
+        return (
+          <div className="flex h-full items-center justify-center text-text-secondary">
+            [RESEARCH MODE PLACEHOLDER]
+          </div>
+        );
+      case SessionMode.DELIBERATION:
+        return (
+          <div className="flex h-full items-center justify-center text-text-secondary">
+            [DELIBERATION MODE PLACEHOLDER]
+          </div>
+        );
+      case SessionMode.WORKSPACE:
+        return (
+          <div className="flex h-full items-center justify-center text-text-secondary">
+            [WORKSPACE MODE PLACEHOLDER]
+          </div>
+        );
+      case SessionMode.ARENA:
+        return (
+          <div className="flex h-full items-center justify-center text-text-secondary">
+            [ARENA MODE PLACEHOLDER]
+          </div>
+        );
+      case SessionMode.REPLAY:
+        return (
+          <div className="flex h-full items-center justify-center text-text-secondary">
+            [REPLAY MODE PLACEHOLDER]
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-bg-base font-sans text-text-primary">
-      <div className="flex flex-col items-center space-y-4 rounded-lg border border-border bg-bg-surface p-8 shadow-xl">
-        <h1 className="text-xl font-bold tracking-tight text-accent">Stoa GUI</h1>
-        <p className="text-sm text-text-secondary">Project Bootstrap Complete (M0-WP01)</p>
-        <div className="flex space-x-2">
-          <span className="flex items-center space-x-1 rounded-full bg-success/10 px-2 py-1 text-xs font-medium text-success ring-1 ring-inset ring-success/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-success"></span>
-            <span>Shell Loaded</span>
-          </span>
-        </div>
+    <div className="flex h-screen w-screen overflow-hidden bg-bg-base font-sans leading-relaxed text-text-primary">
+      <Sidebar />
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <Header />
+        <main className="flex-1 overflow-auto bg-bg-base p-6">
+          {renderContent()}
+        </main>
       </div>
+      <TracePanel />
     </div>
   );
 }
+
+export default App;

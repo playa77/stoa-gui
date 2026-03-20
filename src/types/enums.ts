@@ -13,6 +13,7 @@ export enum SessionMode {
   DELIBERATION = "deliberation",
   WORKSPACE = "workspace",
   ARENA = "arena",
+  REPLAY = "replay",
 }
 
 export enum MessageRole {
