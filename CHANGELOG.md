@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Milestone 5: Chat Mode.
+  - ChatView with integrated MessageList and ChatInput.
+  - MessageBubble with role-based styling and streaming support.
+  - Auto-scrolling message list.
+  - Resizable textarea for input with Ctrl+Enter shortcut.
 - Milestone 4: Shell.
   - Sidebar with mode switcher and session list.
   - Header with session title, connection status, and approval/health badges.
