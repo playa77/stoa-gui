@@ -1,6 +1,7 @@
 import { Sidebar } from "./components/shell/Sidebar";
 import { Header } from "./components/shell/Header";
 import { TracePanel } from "./components/shell/TracePanel";
+import { ChatView } from "./components/chat/ChatView";
 import { useUIStore } from "./stores/ui";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { usePolling } from "./hooks/usePolling";
@@ -16,15 +17,11 @@ function App() {
   const renderContent = () => {
     switch (activeMode) {
       case SessionMode.CHAT:
-        return (
-          <div className="flex h-full items-center justify-center text-text-secondary">
-            [CHAT MODE PLACEHOLDER]
-          </div>
-        );
+        return <ChatView />;
       case SessionMode.RESEARCH:
         return (
-          <div className="flex h-full items-center justify-center text-text-secondary">
-            [RESEARCH MODE PLACEHOLDER]
+          <div className="flex h-full items-center justify-center text-text-secondary italic">
+            [RESEARCH MODE READY]
           </div>
         );
       case SessionMode.DELIBERATION:
@@ -61,7 +58,7 @@ function App() {
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-auto bg-bg-base p-6">
+        <main className="flex-1 overflow-hidden bg-bg-base">
           {renderContent()}
         </main>
       </div>
