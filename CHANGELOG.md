@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Milestone 6: Approval Panel.
+  - Right-side slide-in Panel for management of pending ApprovalRequests.
+  - ApprovalCard component with action details, permission badges, resource lists, and previews.
+  - Support for non-reversible action warnings.
+  - Full Approve/Deny integration with the ApprovalStore.
 - Milestone 5: Chat Mode.
   - ChatView with integrated MessageList and ChatInput.
   - MessageBubble with role-based styling and streaming support.

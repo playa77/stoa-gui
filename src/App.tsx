@@ -1,6 +1,7 @@
 import { Sidebar } from "./components/shell/Sidebar";
 import { Header } from "./components/shell/Header";
 import { TracePanel } from "./components/shell/TracePanel";
+import { ApprovalPanel } from "./components/shell/ApprovalPanel";
 import { ChatView } from "./components/chat/ChatView";
 import { useUIStore } from "./stores/ui";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
@@ -63,6 +64,7 @@ function App() {
         </main>
       </div>
       <TracePanel />
+      <ApprovalPanel />
     </div>
   );
 }
