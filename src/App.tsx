@@ -1,3 +1,4 @@
+import { ArenaView } from "./components/arena";
 import { ActionPrompt, WorkspaceView } from "./components/workspace";
 import { ResearchView } from "./components/research";
 import { Sidebar } from "./components/shell/Sidebar";
@@ -30,11 +31,7 @@ function App() {
       case SessionMode.WORKSPACE:
         return <WorkspaceView />;
       case SessionMode.ARENA:
-        return (
-          <div className="flex h-full items-center justify-center text-text-secondary">
-            [ARENA MODE PLACEHOLDER]
-          </div>
-        );
+        return <ArenaView />;
       case SessionMode.REPLAY:
         return <ReplayView />;
       default:
