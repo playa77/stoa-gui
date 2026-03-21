@@ -6,16 +6,32 @@ interface TraceState {
   events: Record<string, TraceEvent[]>;
   panelOpen: boolean;
   filter: string[];
+  // Replay specific state
+  activeTraceId: string | null;
+  selectedEventId: string | null;
+  playbackIndex: number; // For scrubbing through events
+  isReplayMode: boolean;
+  
   fetchTrace: (traceId: string) => Promise<void>;
   fetchSummary: (traceId: string) => Promise<RunSummary | null>;
   setFilter: (types: string[]) => void;
   togglePanel: () => void;
+  
+  // Replay actions
+  setActiveTrace: (traceId: string | null) => void;
+  selectEvent: (eventId: string | null) => void;
+  setPlaybackIndex: (index: number) => void;
+  setReplayMode: (active: boolean) => void;
 }
 
 export const useTraceStore = create<TraceState>((set) => ({
   events: {},
   panelOpen: false,
   filter: [],
+  activeTraceId: null,
+  selectedEventId: null,
+  playbackIndex: -1,
+  isReplayMode: false,
 
   fetchTrace: async (traceId) => {
     try {
@@ -44,6 +60,11 @@ export const useTraceStore = create<TraceState>((set) => ({
 
   setFilter: (types) => set({ filter: types }),
   togglePanel: () => set((state) => ({ panelOpen: !state.panelOpen })),
+
+  setActiveTrace: (traceId) => set({ activeTraceId: traceId, playbackIndex: -1, selectedEventId: null }),
+  selectEvent: (eventId) => set({ selectedEventId: eventId }),
+  setPlaybackIndex: (index) => set({ playbackIndex: index }),
+  setReplayMode: (active) => set({ isReplayMode: active }),
 }));
 
 interface SkillState {

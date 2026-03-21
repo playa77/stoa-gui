@@ -2,6 +2,8 @@ import { Sidebar } from "./components/shell/Sidebar";
 import { Header } from "./components/shell/Header";
 import { TracePanel } from "./components/shell/TracePanel";
 import { ApprovalPanel } from "./components/shell/ApprovalPanel";
+import { ActionMode } from "./components/deliberation";
+import { ReplayView } from "./components/replay";
 import { ChatView } from "./components/chat/ChatView";
 import { useUIStore } from "./stores/ui";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
@@ -44,11 +46,7 @@ function App() {
           </div>
         );
       case SessionMode.REPLAY:
-        return (
-          <div className="flex h-full items-center justify-center text-text-secondary">
-            [REPLAY MODE PLACEHOLDER]
-          </div>
-        );
+        return <ReplayView />;
       default:
         return null;
     }
