@@ -1,3 +1,4 @@
+import { ActionPrompt, WorkspaceView } from "./components/workspace";
 import { ResearchView } from "./components/research";
 import { Sidebar } from "./components/shell/Sidebar";
 import { Header } from "./components/shell/Header";
@@ -27,11 +28,7 @@ function App() {
       case SessionMode.DELIBERATION:
         return <DeliberationView />;
       case SessionMode.WORKSPACE:
-        return (
-          <div className="flex h-full items-center justify-center text-text-secondary">
-            [WORKSPACE MODE PLACEHOLDER]
-          </div>
-        );
+        return <WorkspaceView />;
       case SessionMode.ARENA:
         return (
           <div className="flex h-full items-center justify-center text-text-secondary">
