@@ -1,107 +1,83 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import React from "react";
+import { useUIStore } from "../../stores/ui";
+import { SessionMode } from "../../types";
+import { clsx } from "clsx";
 import { 
   MessageSquare, 
   Search, 
   Scale, 
-  Terminal, 
+  FolderCode, 
   Trophy, 
-  History,
-  ChevronLeft,
-  ChevronRight,
-  Plus
+  RotateCcw,
+  Settings,
+  Terminal
 } from "lucide-react";
-import { useUIStore } from "../../stores/ui";
-import { useSessionStore } from "../../stores/sessions";
-import { SessionMode } from "../../types";
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+interface NavItemProps {
+  mode: SessionMode;
+  icon: React.ReactNode;
+  label: string;
 }
 
-const modes = [
-  { id: SessionMode.CHAT, icon: MessageSquare, label: "Chat" },
-  { id: SessionMode.RESEARCH, icon: Search, label: "Research" },
-  { id: SessionMode.DELIBERATION, icon: Scale, label: "Deliberation" },
-  { id: SessionMode.WORKSPACE, icon: Terminal, label: "Workspace" },
-  { id: SessionMode.ARENA, icon: Trophy, label: "Arena" },
-  { id: SessionMode.REPLAY, icon: History, label: "Replay" },
-];
-
-export const Sidebar = () => {
-  const { activeMode, setMode, sidebarOpen, toggleSidebar } = useUIStore();
-  const { sessions, activeSessionId, setActive, createSession } = useSessionStore();
-
-  const filteredSessions = Object.values(sessions).filter(s => s.mode === activeMode);
+const NavItem: React.FC<NavItemProps> = ({ mode, icon, label }) => {
+  const { activeMode, setMode } = useUIStore();
+  const isActive = activeMode === mode;
 
   return (
-    <div
-      className={cn(
-        "flex flex-col border-r border-border bg-bg-surface transition-all duration-150 ease-in-out",
-        sidebarOpen ? "w-[260px]" : "w-[48px]"
+    <button
+      onClick={() => setMode(mode)}
+      className={clsx(
+        "group relative flex flex-col items-center justify-center w-14 h-14 transition-all duration-200",
+        isActive ? "text-teal-500 bg-zinc-900/80" : "text-zinc-600 hover:text-zinc-300 hover:bg-zinc-900/40"
       )}
+      title={label}
     >
-      {/* Mode Switcher */}
-      <div className="flex flex-col items-center space-y-2 border-b border-border p-2">
-        {modes.map((mode) => (
-          <button
-            key={mode.id}
-            onClick={() => setMode(mode.id)}
-            title={mode.label}
-            className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-md transition-colors",
-              activeMode === mode.id
-                ? "bg-accent text-white"
-                : "text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
-            )}
-          >
-            <mode.icon size={20} />
-          </button>
-        ))}
+      <div className={clsx(
+        "transition-transform duration-200",
+        isActive ? "scale-110" : "group-hover:scale-105"
+      )}>
+        {icon}
+      </div>
+      <span className={clsx(
+        "text-[8px] font-mono mt-1 uppercase font-bold tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity",
+        isActive && "opacity-100"
+      )}>
+        {label}
+      </span>
+      {isActive && (
+        <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 bg-teal-500 rounded-r-full shadow-[0_0_8px_rgba(20,184,166,0.6)]" />
+      )}
+    </button>
+  );
+};
+
+export const Sidebar = () => {
+  return (
+    <aside className="flex h-full w-[56px] flex-col items-center bg-zinc-950 border-r border-zinc-900 py-3 shadow-2xl z-50">
+      <div className="mb-8 p-2 bg-teal-950/20 rounded-lg border border-teal-900/30">
+        <div className="w-6 h-6 bg-teal-500 rounded flex items-center justify-center text-zinc-950 font-black text-xs shadow-[0_0_15px_rgba(20,184,166,0.4)]">
+          Σ
+        </div>
       </div>
 
-      {/* Session List */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
-        {sidebarOpen && (
-          <div className="p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-                {activeMode} Sessions
-              </h2>
-              <button 
-                onClick={() => createSession(activeMode)}
-                className="rounded-md p-1 hover:bg-bg-elevated text-text-secondary hover:text-text-primary"
-              >
-                <Plus size={16} />
-              </button>
-            </div>
-            <div className="space-y-1">
-              {filteredSessions.map((session) => (
-                <button
-                  key={session.id}
-                  onClick={() => setActive(session.id)}
-                  className={cn(
-                    "w-full rounded-md px-3 py-2 text-left text-sm transition-colors truncate",
-                    activeSessionId === session.id
-                      ? "bg-bg-elevated text-text-primary ring-1 ring-inset ring-border"
-                      : "text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
-                  )}
-                >
-                  {session.id.substring(0, 8)}...
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+      <nav className="flex flex-col gap-2 flex-1">
+        <NavItem mode={SessionMode.CHAT} icon={<MessageSquare size={18} />} label="CHAT" />
+        <NavItem mode={SessionMode.RESEARCH} icon={<Search size={18} />} label="RES" />
+        <NavItem mode={SessionMode.DELIBERATION} icon={<Scale size={18} />} label="DELIB" />
+        <NavItem mode={SessionMode.WORKSPACE} icon={<FolderCode size={18} />} label="WORK" />
+        <NavItem mode={SessionMode.ARENA} icon={<Trophy size={18} />} label="ARENA" />
+        <div className="my-2 border-t border-zinc-900 w-8 self-center" />
+        <NavItem mode={SessionMode.REPLAY} icon={<RotateCcw size={18} />} label="REPLAY" />
+      </nav>
 
-      {/* Toggle */}
-      <button
-        onClick={toggleSidebar}
-        className="flex h-12 items-center justify-center border-t border-border text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
-      >
-        {sidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
-      </button>
-    </div>
+      <div className="mt-auto flex flex-col gap-4 mb-4">
+        <button className="text-zinc-700 hover:text-zinc-400 p-2 transition-colors">
+          <Terminal size={18} />
+        </button>
+        <button className="text-zinc-700 hover:text-zinc-400 p-2 transition-colors">
+          <Settings size={18} />
+        </button>
+      </div>
+    </aside>
   );
 };
