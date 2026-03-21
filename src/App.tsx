@@ -1,3 +1,4 @@
+import { ResearchView } from "./components/research";
 import { Sidebar } from "./components/shell/Sidebar";
 import { Header } from "./components/shell/Header";
 import { TracePanel } from "./components/shell/TracePanel";
@@ -22,11 +23,7 @@ function App() {
       case SessionMode.CHAT:
         return <ChatView />;
       case SessionMode.RESEARCH:
-        return (
-          <div className="flex h-full items-center justify-center text-text-secondary italic">
-            [RESEARCH MODE READY]
-          </div>
-        );
+        return <ResearchView />;
       case SessionMode.DELIBERATION:
         return (
           <div className="flex h-full items-center justify-center text-text-secondary">
