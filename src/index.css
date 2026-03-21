@@ -2,30 +2,36 @@
 @import "@fontsource/ibm-plex-sans/400.css";
 @import "@fontsource/ibm-plex-sans/700.css";
 @import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/700.css";
 
+/* Canonical Stoa Design Tokens - Operator-Grade (Milestone 13 Polish) */
 :root {
-  --color-bg-base: #0a0e14;
-  --color-bg-surface: #111720;
-  --color-bg-elevated: #1a2030;
-  --color-accent: #3b9eba;
-  --color-accent-hover: #4fb3d1;
-  --color-error: #e55050;
-  --color-warning: #d4a843;
-  --color-success: #4caf7c;
-  --color-text-primary: #e0e4ea;
-  --color-text-secondary: #8892a0;
-  --color-border: #2a3040;
+  --color-zinc-950: #09090b;
+  --color-zinc-900: #18181b;
+  --color-zinc-800: #27272a;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-600: #52525b;
+  --color-zinc-500: #71717a;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-100: #f4f4f5;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-amber-500: #f59e0b;
+  --color-red-500: #ef4444;
+  --color-emerald-500: #10b981;
+
+  --color-bg-base: var(--color-zinc-950);
+  --color-bg-surface: var(--color-zinc-900);
+  --color-bg-elevated: var(--color-zinc-800);
+  --color-accent: var(--color-teal-500);
+  --color-text-primary: var(--color-zinc-300);
+  --color-text-secondary: var(--color-zinc-500);
+  --color-border: var(--color-zinc-800);
+  
   --font-sans: "IBM Plex Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 20px;
-  --font-size-xl: 24px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --space-unit: 4px;
 }
 
 @theme {
@@ -33,33 +39,48 @@
   --color-bg-surface: var(--color-bg-surface);
   --color-bg-elevated: var(--color-bg-elevated);
   --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-error: var(--color-error);
-  --color-warning: var(--color-warning);
-  --color-success: var(--color-success);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-border: var(--color-border);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --font-size-xs: var(--font-size-xs);
-  --font-size-sm: var(--font-size-sm);
-  --font-size-md: var(--font-size-md);
-  --font-size-lg: var(--font-size-lg);
-  --font-size-xl: var(--font-size-xl);
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --spacing-unit: var(--space-unit);
 }
 
-body {
+/* Base resets & layout */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   background-color: var(--color-bg-base);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Custom Scrollbar Styling (monochrome density) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-zinc-800);
+  border-radius: 0px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-zinc-700);
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Mode-switching transitions */
+.mode-fade-enter { opacity: 0; transform: scale(0.98); }
+.mode-fade-enter-active { opacity: 1; transform: scale(1); transition: opacity 200ms, transform 200ms; }
